@@ -27,10 +27,10 @@
                             <a class="nav-link" href="show_players.php">Players Table</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">About Players Table</a>
+                            <a class="nav-link" href="about_players.php">About Players Table</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Modify Players Table</a>
+                            <a class="nav-link" href="insert_player.php">Insert Player</a>
                         </li>
                     </ul>
                 </div>

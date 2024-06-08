@@ -2,10 +2,10 @@
 
 $pdo = require_once "database.php";
 
-// TODO: implement other search methods
-$in_game_name = $_GET["search_text"] ?? "";
+$search_category = $_GET["search_choices"] ?? "";
+$search_text = $_GET["search_text"] ?? "";
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($in_game_name)) {
+if ($search_category == "in_game_name") {
     $get_by_in_game_name_sql =
         "SELECT
             *
@@ -18,12 +18,88 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($in_game_name)) {
 
     $statement = $pdo->prepare($get_by_in_game_name_sql);
 
-    $statement->bindValue(":in_game_name", "%" . $in_game_name . "%");
+    $statement->bindValue(":in_game_name", "%" . $search_text . "%");
 
     $statement->execute();
 
     $all_players = $statement->fetchAll(PDO::FETCH_ASSOC);
-} elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+} elseif ($search_category == "name") {
+    $name = $_GET["search_text"] ?? "";
+    $get_by_name_sql =
+        "SELECT
+            *
+        FROM
+            players
+        WHERE
+            name
+        LIKE
+            :name";
+
+    $statement = $pdo->prepare($get_by_name_sql);
+
+    $statement->bindValue(":name", "%" . $search_text . "%");
+
+    $statement->execute();
+
+    $all_players = $statement->fetchAll(PDO::FETCH_ASSOC);
+} elseif ($search_category == "age") {
+    $age = $_GET["search_text"] ?? "";
+    $get_by_age_sql =
+        "SELECT
+            *
+        FROM
+            players
+        WHERE
+            age
+        LIKE
+            :age";
+
+    $statement = $pdo->prepare($get_by_age_sql);
+
+    $statement->bindValue(":age", "%" . $search_text . "%");
+
+    $statement->execute();
+
+    $all_players = $statement->fetchAll(PDO::FETCH_ASSOC);
+} elseif ($search_category == "team") {
+    $name = $_GET["search_text"] ?? "";
+    $get_by_team_sql =
+        "SELECT
+            *
+        FROM
+            players
+        WHERE
+            team
+        LIKE
+            :team";
+
+    $statement = $pdo->prepare($get_by_team_sql);
+
+    $statement->bindValue(":team", "%" . $search_text . "%");
+
+    $statement->execute();
+
+    $all_players = $statement->fetchAll(PDO::FETCH_ASSOC);
+} elseif ($search_category == "region") {
+    $name = $_GET["search_text"] ?? "";
+    $get_by_region_sql =
+        "SELECT
+            *
+        FROM
+            players
+        WHERE
+            region
+        LIKE
+            :region";
+
+    $statement = $pdo->prepare($get_by_region_sql);
+
+    $statement->bindValue(":region", "%" . $search_text . "%");
+
+    $statement->execute();
+
+    $all_players = $statement->fetchAll(PDO::FETCH_ASSOC);
+} else {
     $get_all_players_sql =
         "SELECT 
             * 
@@ -43,19 +119,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($in_game_name)) {
 
 <div class="container my-4">
 
+    <h4>Players</h4>
     <form action="<?= $_SERVER["PHP_SELF"] ?>" method="GET" class="d-flex align-items-center gap-2 my-4">
-        <select name="search_choices" class="form-select w-25">
-            <option name="">In-game name</option>
-            <option name="">Name</option>
-            <option name="">Team</option>
-            <option name="">Age</option>
-            <option name="">Region</option>
+        <select name="search_choices" class="form-select w-25 border border-secondary">
+            <option value="in_game_name" <?= $search_category == "in_game_name" ? "selected" : "" ?>>In-game name</option>
+            <option value="name" <?= $search_category == "name" ? "selected" : "" ?>>Name</option>
+            <option value="age" <?= $search_category == "age" ? "selected" : "" ?>>Age</option>
+            <option value="team" <?= $search_category == "team" ? "selected" : "" ?>>Team</option>
+            <option value="region" <?= $search_category == "region" ? "selected" : "" ?>>Region</option>
         </select>
-        <input type="text" name="search_text" class="form-control w-25" value="<?= $_GET["search_text"] ?? "" ?>">
+        <input type="text" name="search_text" class="form-control w-25 border border-secondary" value="<?= $_GET["search_text"] ?? "" ?>">
         <button type="search" class="btn btn-primary">Search</button>
     </form>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered border border-secondary-subtle">
         <thead>
             <tr>
                 <th>ID</th>
@@ -73,8 +150,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($in_game_name)) {
                     <th><?= $player["id"]; ?></th>
                     <td><?= $player["in_game_name"]; ?></td>
                     <td><?= $player["name"]; ?></td>
-                    <td><?= $player["team"]; ?></td>
                     <td><?= $player["age"]; ?></td>
+                    <td><?= $player["team"]; ?></td>
                     <td><?= $player["region"]; ?></td>
                     <td><?= $player["join_date"]; ?></td>
                 </tr>
