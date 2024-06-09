@@ -1,5 +1,7 @@
 <?php
 
+$current_page = "about_players";
+
 $pdo = require_once "database.php";
 
 $describe_table_sql =
@@ -11,9 +13,18 @@ $statement->execute();
 
 $table_description = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-echo "<pre>";
-var_dump($table_description);
-echo "</pre>";
+$count_records_sql =
+    "SELECT COUNT(*) FROM players";
+
+$statement = $pdo->prepare($count_records_sql);
+
+$statement->execute();
+
+$record_count = $statement->fetch(PDO::FETCH_ASSOC);
+
+// echo "<pre>";
+// var_dump($table_description);
+// echo "</pre>";
 ?>
 
 <?php require_once "header.php"; ?>
@@ -46,17 +57,26 @@ echo "</pre>";
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem nulla quae architecto accusamus animi ipsum obcaecati delectus nostrum? Modi sit, rem unde quis debitis rerum. Assumenda qui ipsum incidunt blanditiis quas voluptate consequatur, reprehenderit repudiandae dolore autem veritatis, exercitationem, ipsam sint est maxime laboriosam corporis? Reiciendis omnis in magni veniam.</p>
+        <p>The structure of the players table, information gathered by using DESCRIBE on the players table.</p>
     </div>
 
     <div class="container my-4">
-        <h4 class="fw-bold">Players Table Fields</h4>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem nulla quae architecto accusamus animi ipsum obcaecati delectus nostrum? Modi sit, rem unde quis debitis rerum. Assumenda qui ipsum incidunt blanditiis quas voluptate consequatur, reprehenderit repudiandae dolore autem veritatis, exercitationem, ipsam sint est maxime laboriosam corporis? Reiciendis omnis in magni veniam.</p>
+        <h4 class="fw-bold">Players Table Information</h4>
+        <p>Database name: valorant_players_db</p>
+        <p>Table name: players</p>
+        <p>Rows / Records: <?= $record_count["COUNT(*)"] ?></p>
     </div>
 
     <div class="container my-4">
-        <h4 class="fw-bold">Players Table Structure</h4>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem nulla quae architecto accusamus animi ipsum obcaecati delectus nostrum? Modi sit, rem unde quis debitis rerum. Assumenda qui ipsum incidunt blanditiis quas voluptate consequatur, reprehenderit repudiandae dolore autem veritatis, exercitationem, ipsam sint est maxime laboriosam corporis? Reiciendis omnis in magni veniam.</p>
+        <h4 class="fw-bold">Group 8 Members</h4>
+        <ul class="list-group">
+            <li class="list-group-item active">Rein Solis (Leader)</li>
+            <li class="list-group-item">Jhuvan Caraulia</li>
+            <li class="list-group-item">John Wayne Diaz</li>
+            <li class="list-group-item">Nathaniel Roquiza</li>
+            <li class="list-group-item">Norman Jay Tibule</li>
+            <li class="list-group-item">Janelle Ylagan</li>
+        </ul>
     </div>
 
 </div>

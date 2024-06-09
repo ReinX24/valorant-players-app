@@ -1,5 +1,6 @@
 <?php
 
+$current_page = "index";
 
 ?>
 

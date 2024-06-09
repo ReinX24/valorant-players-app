@@ -21,16 +21,13 @@
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.php">Home</a>
+                            <a class="nav-link <?= $current_page == "index" ? "active" : ""; ?>" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="show_players.php">Players Table</a>
+                            <a class="nav-link <?= $current_page == "show_players" ? "active" : ""; ?>" href="show_players.php">Players Table</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about_players.php">About Players Table</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="insert_player.php">Insert Player</a>
+                            <a class="nav-link <?= $current_page == "about_players" ? "active" : ""; ?>" href="about_players.php">About Players Table</a>
                         </li>
                     </ul>
                 </div>

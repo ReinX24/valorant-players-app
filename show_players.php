@@ -1,5 +1,7 @@
 <?php
 
+$current_page = "show_players";
+
 $pdo = require_once "database.php";
 
 $search_category = $_GET["search_choices"] ?? "";
@@ -118,9 +120,8 @@ if ($search_category == "in_game_name") {
 <?php require_once "header.php"; ?>
 
 <div class="container my-4">
-
     <h4>Players</h4>
-    <form action="<?= $_SERVER["PHP_SELF"] ?>" method="GET" class="d-flex align-items-center gap-2 my-4">
+    <form action="<?= $_SERVER["PHP_SELF"] ?>" method="GET" class="d-flex align-items-center gap-2 mt-4">
         <select name="search_choices" class="form-select w-25 border border-secondary">
             <option value="in_game_name" <?= $search_category == "in_game_name" ? "selected" : "" ?>>In-game name</option>
             <option value="name" <?= $search_category == "name" ? "selected" : "" ?>>Name</option>
@@ -132,7 +133,9 @@ if ($search_category == "in_game_name") {
         <button type="search" class="btn btn-primary">Search</button>
     </form>
 
-    <table class="table table-bordered border border-secondary-subtle">
+    <a href="insert_player.php" class="btn btn-primary btn-sm mt-4">Insert Player Data</a>
+
+    <table class="table table-bordered border border-secondary-subtle mt-4">
         <thead>
             <tr>
                 <th>ID</th>
@@ -142,6 +145,7 @@ if ($search_category == "in_game_name") {
                 <th>Team</th>
                 <th>Region</th>
                 <th>Join Date</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -154,6 +158,10 @@ if ($search_category == "in_game_name") {
                     <td><?= $player["team"]; ?></td>
                     <td><?= $player["region"]; ?></td>
                     <td><?= $player["join_date"]; ?></td>
+                    <td class="d-flex justify-content-center gap-2">
+                        <a href="" class="btn btn-secondary btn-sm">Edit</a>
+                        <a href="" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
