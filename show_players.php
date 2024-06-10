@@ -117,7 +117,7 @@ if ($search_category == "in_game_name") {
 
 ?>
 
-<?php require_once "header.php"; ?>
+<?php require_once "includes/header.php"; ?>
 
 <div class="container my-4">
     <h4>Players</h4>
@@ -159,8 +159,8 @@ if ($search_category == "in_game_name") {
                     <td><?= $player["region"]; ?></td>
                     <td><?= $player["join_date"]; ?></td>
                     <td class="d-flex justify-content-center gap-2">
-                        <a href="" class="btn btn-secondary btn-sm">Edit</a>
-                        <a href="" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="edit_player.php?player_id=<?= $player["id"]; ?>" class="btn btn-secondary btn-sm">Edit</a>
+                        <a href="delete_player.php?player_id=<?= $player["id"]; ?>" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -168,4 +168,4 @@ if ($search_category == "in_game_name") {
     </table>
 </div>
 
-<?php require_once "footer.php"; ?>
+<?php require_once "includes/footer.php"; ?>

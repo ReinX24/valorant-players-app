@@ -26,12 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $statement->bindValue(":region", $region);
     $statement->bindValue(":join_date", $join_date);
 
-    $statement->execute();
+    if ($statement->execute()) {
+        header("Location: show_players.php");
+    }
 }
 
 ?>
 
-<?php require_once "header.php"; ?>
+<?php require_once "includes/header.php"; ?>
 
 <div class="container">
     <h1 class="my-4">Insert Valorant Player</h1>
@@ -67,8 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="date" name="join_date" class="form-control">
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <a href="show_players.php" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 
-<?php require_once "footer.php"; ?>
+<?php require_once "includes/footer.php"; ?>

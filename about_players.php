@@ -27,7 +27,7 @@ $record_count = $statement->fetch(PDO::FETCH_ASSOC);
 // echo "</pre>";
 ?>
 
-<?php require_once "header.php"; ?>
+<?php require_once "includes/header.php"; ?>
 
 <div class="container">
 
@@ -81,4 +81,4 @@ $record_count = $statement->fetch(PDO::FETCH_ASSOC);
 
 </div>
 
-<?php require_once "footer.php"; ?>
+<?php require_once "includes/footer.php"; ?>
